@@ -70,10 +70,9 @@
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
-
+                        <a href="{{ url('merchant/login') }}">Login</a>
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
+                            <a href="{{ route('new_reg') }}">Register</a>
                         @endif
                     @endauth
                 </div>
@@ -81,7 +80,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Merchant
                 </div>
 
                 <div class="links">
