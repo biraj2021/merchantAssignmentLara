@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+//use Illuminate\Database\Eloquent\Model\Buyer;
+use App\Models\Buyer;
+use App\Models\Seller;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -38,9 +41,31 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ]; */
     public function buyers() {
-        return $this->hasMany(Buyer::class);
+        return $this->hasOne(Buyer::class);
     }
     public function sellers() {
-        return $this->hasMany(Seller::class);
+        return $this->hasOne(Seller::class);
     }
+
+    public static function userList(){
+        $userlist = User::all();
+      return $userlist;
+    }
+    /*public function phone()
+    {
+        return $this->hasOne('App\Phone');
+    }*/
+    /*public function userName(Request $request ){
+        print_r($request); die;
+        $flight = App\Flight::where('active', 1)->first();
+    }*/
+
+
+
+
+
+
+
+
+
 }

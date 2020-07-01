@@ -9,40 +9,41 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">
+                            {{ __('E-Mail/Phone') }}</label>
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" placeholder="Enter E-Mail or Phone Number" autofocus>
+                                @if($errors->has('email'))
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{$errors->first('email')}}</strong>
+                                </span>
+                                @endif
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Enter created password while registration" name="password" autocomplete="current-password">
+                                @if($errors->has('password'))
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{$errors->first('password')}}</strong>
+                                </span>
+                                @endif
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row {{ $errors->has('usertype') ? 'has-error' : ''}}">
                             <label for="usertype" class="col-md-4 col-form-label text-md-right">{{ __('Usertype ') }}</label>
                             <div class="col-md-6">
-                                <select name="usertype" id="usertype" class="form-control @error('usertype') is-invalid @enderror">
+                                <select name="usertype" id="usertype" class="form-control">
                                     <option value="">Select Type</option>
                                     <option value="1">Buyer</option>
                                     <option value="2">Seller</option>
                                 </select>
-                                @error('usertype')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                @if($errors->has('usertype'))
+                                 <span class="invalid-feedback" role="alert">
+                                    {{ $errors->first('usertype') }}
+                                 </span>
+                                @endif
                             </div>
                         </div>
                         <div class="form-group row">

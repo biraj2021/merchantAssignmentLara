@@ -24,4 +24,9 @@ class Buyer extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public static function buyerList(){
+      $blist = Buyer::all();
+      return $blist;
+    }
+
 }

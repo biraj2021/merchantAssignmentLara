@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-
+use App\User;
 class HomeController extends Controller
 {
     /**
@@ -28,9 +28,15 @@ class HomeController extends Controller
         $user=Auth::user();
         //echo"<pre>";print_r($user); exit;
         if($user->usertype==1){ //echo "Hello"; die;
-            return view('merchant.buyer',compact('user'));
-        } elseif ($user->usertype==2){ //echo "Hello"; die;
-            return view('merchant.seller',compact('user'));
+           $id = $user->id;
+           $buyer =User::find($id)->buyers;
+        
+            return view('merchant.buyer',compact('buyer'));
+        } elseif ($user->usertype==2){ 
+            $id = $user->id;
+            $seller =User::find($id)->sellers;
+
+            return view('merchant.seller',compact('seller'));
        } else {
            return "Please Select type";
        }

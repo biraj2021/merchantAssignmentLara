@@ -9,12 +9,16 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\User;
+use App\Models\Buyer;
+use App\Models\Seller;
 Auth::routes();
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 Route::get('newRegistration', 'registrationController@showRegistrationForm')->name('new_reg');
 Route::post('newRegistration', 'registrationController@create');
+//Route::post('login', 'Auth\LoginController@login')->name('login');
 Route::get('merchant/login',function(){
   return view('merchant.login');
 });
@@ -40,13 +44,37 @@ Route::group(['middleware'=>['auth','buyer']],function(){
 });
 Route::group(['middleware'=>['auth','seller']],function(){
 	Route::get('seller',function(){
-        return redirect('merchant/buyer');
+        return redirect('merchant/seller');
     });
   Route::get('merchant/seller', 'HomeController@index');
 });
 
-//Route::get('/home', 'HomeController@index')->name('home');
-//Route::get('mmerchant/buyer', 'HomeController@buyer');
-//Route::get('merchant/seller', 'HomeController@seller');
+Route::get('/admin', function(){
+  return view('adminDashboard.content');
+});
+
+Route::get('admin/userList', function(){
+  $userlist = User::userList();
+  return view('adminDashboard.userList', compact('userlist'));
+});
+
+Route::get('admin/buyerList', function(){
+  $buyerlist = Buyer::buyerList();
+  return view('adminDashboard.buyerList', compact('buyerlist'));
+});
+
+Route::get('admin/sellerList', function(){
+  $sellerlist = Seller::sellerList();
+  return view('adminDashboard.sellerList', compact('sellerlist'));
+});
+
+
+
+
+
+
+
+
+
 
 
